@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información - Big Data</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-right: 320px;
+        }
+
+        .header-links img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-right: 320px;
+            padding: 20px;
+        }
+
+        .info-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            padding: 2rem;
+            z-index: 1000;
+        }
+
+        .sidebar:hover {
+            right: 0;
+        }
+
+        .color-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown-content {
+            background-color: #555;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dropdown-content a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #666;
+            border-radius: 4px;
+        }
+
+        .element-selector {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: #444;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+
+        /* Add margin to main content to prevent sidebar overlap */
+        .container {
+            margin-right: 320px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include header -->
+    <div id="header"></div>
+
+    <header class="header">
+        <h1 class="header-title">Big Data y su Impacto Energético</h1>
+        <div class="header-links">
+            <a href="https://www.edu.xunta.gal/centros/iesaslagoas/" class="header-icon" title="IES As Lagoas">
+                <img src="../images/logo-lagoas.png" alt="Instituto" width="32" height="32">
+            </a>
+            <a href="mailto:gabrantaz@gmail.com" class="header-icon" title="Mi Correo">
+                <img src="../images/gmail.png" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://www.instagram.com/gabrantaz/" class="header-icon" title="Instagram">
+                <img src="../images/insta.png" alt="Instagram" width="32" height="32">
+            </a>
+            <a href="../index.html" class="main-link" title="Página Principal">M</a>
+        </div>
+    </header>
+
+    <!-- Add sidebar -->
+    <aside class="sidebar" id="customSidebar">
+        <h3>Personalizar Web</h3>
+        <div class="sidebar-content">
+            <div class="customize-section">
+                <h4>Cambiar Colores</h4>
+                <select class="element-selector" id="elementSelector">
+                    <option value="header">Cabecera</option>
+                    <option value="info-section">Secciones de Información</option>
+                    <option value="section-title">Títulos de Sección</option>
+                    <option value="content">Contenido</option>
+                </select>
+                <div class="color-picker">
+                    <button class="color-btn" style="background-color: #ff6b6b" onclick="changeColor('#ff6b6b')"></button>
+                    <button class="color-btn" style="background-color: #4ecdc4" onclick="changeColor('#4ecdc4')"></button>
+                    <button class="color-btn" style="background-color: #45b7d1" onclick="changeColor('#45b7d1')"></button>
+                    <button class="color-btn" style="background-color: #96ceb4" onclick="changeColor('#96ceb4')"></button>
+                    <button class="color-btn" style="background-color: #d4a5a5" onclick="changeColor('#d4a5a5')"></button>
+                    <button class="color-btn" style="background-color: #ffbe0b" onclick="changeColor('#ffbe0b')"></button>
+                    <button class="color-btn" style="background-color: #fb5607" onclick="changeColor('#fb5607')"></button>
+                    <button class="color-btn" style="background-color: #ff006e" onclick="changeColor('#ff006e')"></button>
+                    <button class="color-btn" style="background-color: #8338ec" onclick="changeColor('#8338ec')"></button>
+                    <button class="color-btn" style="background-color: #3a86ff" onclick="changeColor('#3a86ff')"></button>
+                    <button class="color-btn" style="background-color: #606c38" onclick="changeColor('#606c38')"></button>
+                    <button class="color-btn" style="background-color: #ff9f1c" onclick="changeColor('#ff9f1c')"></button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Enlaces Útiles</h4>
+                <div class="dropdown-content">
+                    <h5>Tutoriales de Programación</h5>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=MJkdaVFHrto" target="_blank">Tutorial Web HTML</a></li>
+                        <li><a href="https://www.youtube.com/@LaGeekipediaDeErnesto" target="_blank">Tutorial Python</a></li>
+                    </ul>
+                    
+                    <h5>Cursos Online</h5>
+                    <ul>
+                        <li><a href="https://www.tokioschool.com/formaciones/cursos-programacion/python/" target="_blank">Curso Python - Tokio School</a></li>
+                        <li><a href="https://neoland.es/bootcamps/web-development-online/" target="_blank">Bootcamp Desarrollo Web</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Editar Contenido</h4>
+                <div class="dropdown-content">
+                    <button onclick="enableEditing('info-section')">Editar Información</button>
+                    <button onclick="enableEditing('section-title')">Editar Títulos</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Webgrafía</h4>
+                <div class="dropdown-content">
+                    <a href="webgrafia.html">Ver Referencias</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Agradecimientos</h4>
+                <div class="dropdown-content">
+                    <a href="agradecimientos.html">Ver Video de Agradecimiento</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="container">
+        <h1>¿QUIERES SABER MÁS SOBRE EL BIG DATA?</h1>
+        
+        <section class="info-section">
+            <h2>¿Qué es el Big Data?</h2>
+            <div class="content editable">
+                <p>El Big Data se refiere al conjunto de datos masivos y complejos que, debido a su volumen, diversidad y velocidad de crecimiento, superan la capacidad de las herramientas de gestión de datos convencionales. Este fenómeno ha revolucionado la forma en que procesamos y analizamos la información en el siglo XXI.</p>
+                
+                <p>El término "Big Data" surgió en la década de 1990, cuando John Mashey lo utilizó para describir el manejo de grandes volúmenes de datos científicos. Sin embargo, su relevancia aumentó exponencialmente con la llegada de Internet y la digitalización masiva de la sociedad. Actualmente, el Big Data se caracteriza por las "5 V's": Volumen (cantidad de datos), Velocidad (rapidez de generación y procesamiento), Variedad (diferentes tipos de datos), Veracidad (calidad y precisión) y Valor (utilidad de los datos).</p>
+                
+                <p>En la era digital, el Big Data se ha convertido en un pilar fundamental para la toma de decisiones empresariales, la investigación científica, la medicina personalizada y la inteligencia artificial. Las empresas utilizan análisis de Big Data para comprender el comportamiento de los consumidores, optimizar operaciones y desarrollar nuevos productos. En el ámbito científico, permite procesar grandes cantidades de datos astronómicos, genómicos y climatológicos, contribuyendo a avances significativos en estas áreas.</p>
+                
+                <p>El impacto del Big Data en nuestra sociedad es profundo y multifacético. Ha transformado industrias enteras, desde el comercio minorista hasta la atención médica, y ha dado lugar a nuevas profesiones como científicos de datos y analistas de Big Data. Sin embargo, también plantea desafíos importantes en términos de privacidad, seguridad y consumo energético.</p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Historia y Evolución</h2>
+            <div class="content editable">
+                <p>La evolución del Big Data está intrínsecamente ligada al desarrollo de la tecnología de almacenamiento y procesamiento de datos. En los años 60, los primeros centros de datos utilizaban tarjetas perforadas y cintas magnéticas. La llegada de los discos duros y las bases de datos relacionales en los 70 marcó un punto de inflexión en la gestión de datos.</p>
+                
+                <p>Con la popularización de Internet en los 90, el volumen de datos comenzó a crecer exponencialmente. Las redes sociales, el comercio electrónico y los dispositivos móviles han acelerado esta tendencia. Hoy, generamos más datos en un día que los que se crearon en toda la historia hasta el año 2000. Este crecimiento ha impulsado el desarrollo de nuevas tecnologías como Hadoop, NoSQL y el procesamiento en la nube.</p>
+                
+                <p>El futuro del Big Data está estrechamente vinculado al Internet de las Cosas (IoT), la Inteligencia Artificial y el aprendizaje automático. Se estima que para 2025, el mundo generará 463 exabytes de datos diariamente, lo que plantea nuevos desafíos y oportunidades en términos de procesamiento y análisis de datos.</p>
+            </div>
+        </section>
+
+        <a href="../index.html" class="back-btn">Volver a la página principal</a>
+    </div>
+
+    <script>
+        let selectedElement = 'header';
+
+        document.getElementById('elementSelector').addEventListener('change', function(e) {
+            selectedElement = e.target.value;
+        });
+
+        function changeColor(color) {
+            const elements = document.getElementsByClassName(selectedElement);
+            for (let element of elements) {
+                element.style.backgroundColor = color;
+            }
+        }
+
+        // Make content editable
+        document.querySelectorAll('.editable').forEach(element => {
+            element.contentEditable = true;
+        });
+
+        // Load header
+        fetch('../components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
