@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Data y Consumo Energético</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ffd700;
+            --text-color: #333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-right: 320px; /* Add margin to prevent sidebar overlap */
+        }
+
+        .header-icon {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s;
+        }
+
+        .header-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .main-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: rgba(255,255,255,0.1);
+            transition: background-color 0.3s;
+        }
+
+        .main-link:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .navbar {
+            background-color: #e0e0e0;
+            padding: 1rem;
+            margin: 1rem auto;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+        }
+
+        .nav-item {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background-color: #fff7cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .about-section, .index-section, .personal-info {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            padding: 2rem;
+            z-index: 1000;
+        }
+
+        .sidebar:hover {
+            right: 0;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .color-btn.yellow { background-color: #ffeb3b; }
+        .color-btn.green { background-color: #4caf50; }
+        .color-btn.blue { background-color: #2196f3; }
+
+        @media (max-width: 768px) {
+            .navbar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .header-links {
+                margin-top: 1rem;
+            }
+        }
+
+        .dropdown-content {
+            display: none;
+            background-color: #444;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .element-selector {
+            margin-bottom: 1rem;
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #444;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+
+        .video-container {
+            border: 2px solid black;
+            margin: 1rem 0;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dropdown-content {
+            background-color: #555;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-content ul {
+            background-color: #666;
+            padding: 1rem;
+            border-radius: 4px;
+            list-style: none;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #777;
+            border-radius: 4px;
+        }
+
+        .header-links img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.5rem;
+            }
+            
+            .header-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .header-links {
+                margin-right: 0;
+                justify-content: center;
+            }
+
+            .navbar {
+                grid-template-columns: 1fr;
+                margin: 1rem;
+                padding: 0.5rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 100%;
+                right: -100%;
+                padding: 1rem;
+            }
+
+            .color-picker {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .main-link {
+                font-size: 1.2rem;
+            }
+
+            .about-section, .index-section, .personal-info {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-links {
+                gap: 1rem;
+            }
+
+            .header-links img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .qr-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .website-url {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #f4f4f4;
+            border-radius: 4px;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        #qrcode {
+            display: inline-block;
+            padding: 1rem;
+            background: white;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Header azul con título y enlaces -->
+    <header class="header">
+        <h1 class="header-title">Big Data y su Impacto Energético</h1>
+        <div class="header-links">
+            <a href="https://www.edu.xunta.gal/centros/iesaslagoas/" class="header-icon" title="IES As Lagoas">
+                <img src="./images/logo-lagoas.png" alt="Instituto">
+            </a>
+            <a href="mailto:gabrantaz@gmail.com" class="header-icon" title="Mi Correo">
+                <img src="images/gmail.png" alt="Email">
+            </a>
+            <a href="https://www.instagram.com/gabrantaz/" class="header-icon" title="Instagram">
+                <img src="images/insta.png" alt="Instagram">
+            </a>
+            <a href="index.html" class="main-link" title="Página Principal">M</a>
+        </div>
+    </header>
+
+    <!-- Navegación con rectángulos redondeados -->
+    <nav class="navbar">
+        <a href="pages/folleto.html" class="nav-item">Folleto</a>
+        <a href="pages/presentacion.html" class="nav-item">Presentación</a>
+        <a href="pages/info.html" class="nav-item">Más Información</a>
+        <a href="pages/noticias.html" class="nav-item">Noticias ACE</a>
+    </nav>
+
+    <main class="content">
+        <section class="about-section">
+            <h2>Sobre el Proyecto: Big Data y Consumo Energético</h2>
+            <ul class="project-list">
+                <li>Análisis del impacto del Big Data en el consumo energético</li>
+                <li>Problemas y soluciones sostenibles</li>
+                <li>Casos de estudio y ejemplos reales</li>
+            </ul>
+        </section>
+
+        <section class="index-section">
+            <h3>Índice del Trabajo</h3>
+            <ol class="index-list">
+                <li>Qué es el Big Data</li>
+                <li>Características</li>
+                <li>Principales Usos</li>
+                <li>Desafíos del Big Data</li>
+                <li>Alto Consumo Energético y sus Soluciones</li>
+                <li>Ejemplos del Alto Consumo Energético</li>
+                <li>Conclusiones</li>
+            </ol>
+        </section>
+
+        <section class="personal-info">
+            <h3>Datos del Autor</h3>
+            <div class="info-container">
+                <p><strong>Nombre:</strong> Gabriel Anta Gil</p>
+                <p><strong>Edad:</strong> 17 años</p>
+                <p><strong>Curso:</strong> 2º Bachillerato</p>
+                <p><strong>Instituto:</strong> <a href="https://www.iesaslagoas.org" class="institute-link">IES As Lagoas</a></p>
+            </div>
+            <div class="qr-section">
+                <h4>Accede a esta web desde tu móvil:</h4>
+                <div id="qrcode"></div>
+                <p id="websiteUrl" class="website-url"></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra lateral customizable -->
+    <aside class="sidebar" id="customSidebar">
+        <h3>Personalizar Web</h3>
+        <div class="sidebar-content">
+            <div class="customize-section">
+                <h4>Cambiar Colores</h4>
+                <select class="element-selector" id="elementSelector">
+                    <option value="nav-item">Rectángulos de navegación</option>
+                    <option value="header">Cabecera</option>
+                    <option value="about-section">Sección Sobre el Proyecto</option>
+                    <option value="index-section">Sección Índice</option>
+                    <option value="personal-info">Información Personal</option>
+                </select>
+                <div class="color-picker">
+                    <!-- 12 colores diferentes -->
+                    <button class="color-btn" style="background-color: #ff6b6b" onclick="changeColor('#ff6b6b')"></button>
+                    <button class="color-btn" style="background-color: #4ecdc4" onclick="changeColor('#4ecdc4')"></button>
+                    <button class="color-btn" style="background-color: #45b7d1" onclick="changeColor('#45b7d1')"></button>
+                    <button class="color-btn" style="background-color: #96ceb4" onclick="changeColor('#96ceb4')"></button>
+                    <button class="color-btn" style="background-color: #d4a5a5" onclick="changeColor('#d4a5a5')"></button>
+                    <button class="color-btn" style="background-color: #ffbe0b" onclick="changeColor('#ffbe0b')"></button>
+                    <button class="color-btn" style="background-color: #fb5607" onclick="changeColor('#fb5607')"></button>
+                    <button class="color-btn" style="background-color: #ff006e" onclick="changeColor('#ff006e')"></button>
+                    <button class="color-btn" style="background-color: #8338ec" onclick="changeColor('#8338ec')"></button>
+                    <button class="color-btn" style="background-color: #3a86ff" onclick="changeColor('#3a86ff')"></button>
+                    <button class="color-btn" style="background-color: #606c38" onclick="changeColor('#606c38')"></button>
+                    <button class="color-btn" style="background-color: #ff9f1c" onclick="changeColor('#ff9f1c')"></button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Enlaces Útiles</h4>
+                <div class="dropdown-content">
+                    <h5>Tutoriales de Programación</h5>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=MJkdaVFHrto" target="_blank">Tutorial Web HTML</a></li>
+                        <li><a href="https://www.youtube.com/@LaGeekipediaDeErnesto" target="_blank">Tutorial Python</a></li>
+                    </ul>
+                    
+                    <h5>Cursos Online</h5>
+                    <ul>
+                        <li><a href="https://www.tokioschool.com/formaciones/cursos-programacion/python/" target="_blank">Curso Python - Tokio School</a></li>
+                        <li><a href="https://neoland.es/bootcamps/web-development-online/" target="_blank">Bootcamp Desarrollo Web</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Editar Contenido</h4>
+                <div class="dropdown-content">
+                    <button onclick="enableEditing('index-list')">Editar Índice</button>
+                    <button onclick="enableEditing('info-container')">Editar Datos Personales</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Webgrafía</h4>
+                <div class="dropdown-content">
+                    <a href="pages/webgrafia.html">Ver Referencias</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Agradecimientos</h4>
+                <div class="dropdown-content">
+                    <a href="pages/agradecimientos.html">Ver Video de Agradecimiento</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <script>
+        let selectedElement = 'nav-item';
+
+        document.getElementById('elementSelector').addEventListener('change', function(e) {
+            selectedElement = e.target.value;
+        });
+
+        function changeColor(color) {
+            const elements = document.getElementsByClassName(selectedElement);
+            for (let element of elements) {
+                element.style.backgroundColor = color;
+            }
+        }
+
+        function enableEditing(className) {
+            const container = document.querySelector('.' + className);
+            const elements = container.querySelectorAll('p, li, a');
+            
+            elements.forEach(element => {
+                element.contentEditable = true;
+                element.style.border = '1px dashed #ccc';
+                element.style.padding = '2px';
+                
+                if (element.tagName === 'A') {
+                    element.addEventListener('dblclick', function(e) {
+                        e.preventDefault();
+                        const newUrl = prompt('Introduce el nuevo enlace:', element.href);
+                        if (newUrl) {
+                            element.href = newUrl;
+                        }
+                    });
+                }
+            });
+            
+            alert('Ahora puedes editar el contenido. Haz doble clic en los enlaces para cambiar las URLs.');
+        }
+
+        function createThanksPage() {
+            const thanksHtml = `
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/7VUTvR1DDoI" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>`;
+            
+            const win = window.open('', '_blank');
+            win.document.write(thanksHtml);
+        }
+
+        // QR Code generation
+        window.addEventListener('load', function() {
+            // Verifica si la URL está accesible antes de generar el QR
+            const baseUrl = 'https://gabrantaz.github.io/bigdata-exhibition/';
+            
+            fetch(baseUrl)
+                .then(response => {
+                    if (response.ok) {
+                        // La URL está activa, genera el QR
+                        document.getElementById('websiteUrl').textContent = baseUrl;
+                        
+                        new QRCode(document.getElementById("qrcode"), {
+                            text: baseUrl,
+                            width: 128,
+                            height: 128,
+                            colorDark: "#000000",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                    } else {
+                        document.getElementById('websiteUrl').textContent = 'Sitio web en construcción...';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('websiteUrl').textContent = 'Sitio web en construcción...';
+                });
+        });
+    </script>
+</body>
+</html>

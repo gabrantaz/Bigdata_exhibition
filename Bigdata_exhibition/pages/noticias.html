@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Noticias ACE - Big Data</title>
+    <style>
+        /* Header and general styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-right: 320px;
+        }
+
+        /* News styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-right: 320px;
+        }
+
+        .news-item {
+            background: white;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .news-title {
+            color: #ff4444;
+            margin-bottom: 15px;
+        }
+
+        .news-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .news-link {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .news-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            padding: 2rem;
+            z-index: 1000;
+        }
+
+        .sidebar:hover {
+            right: 0;
+        }
+
+        .element-selector {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: #444;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+
+        .color-picker {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .color-picker button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-picker button:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown-content button {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .dropdown-content button:hover {
+            background: #555;
+        }
+
+        .editable {
+            border: 1px dashed #ccc;
+            padding: 4px;
+            min-height: 20px;
+        }
+
+        .editable:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Big Data y su Impacto Energético</h1>
+        <div class="header-links">
+            <a href="https://www.edu.xunta.gal/centros/iesaslagoas/" class="header-icon" title="IES As Lagoas">
+                <img src="../images/logo-lagoas.png" alt="Instituto" width="32" height="32">
+            </a>
+            <a href="mailto:gabrantaz@gmail.com" class="header-icon" title="Mi Correo">
+                <img src="../images/gmail.png" alt="Email" width="32" height="32">
+            </a>
+            <a href="https://www.instagram.com/gabrantaz/" class="header-icon" title="Instagram">
+                <img src="../images/insta.png" alt="Instagram" width="32" height="32">
+            </a>
+            <a href="../index.html" class="main-link" title="Página Principal">M</a>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="customSidebar">
+        <h3>Personalizar Web</h3>
+        <div class="sidebar-content">
+            <div class="customize-section">
+                <h4>Cambiar Colores</h4>
+                <select class="element-selector" id="elementSelector">
+                    <option value="header">Cabecera</option>
+                    <option value="news-item">Noticias</option>
+                    <option value="news-title">Títulos</option>
+                    <option value="container">Contenedor Principal</option>
+                </select>
+                <div class="color-picker">
+                    <button onclick="changeColor('#ff6b6b')" style="background-color: #ff6b6b"></button>
+                    <button onclick="changeColor('#4ecdc4')" style="background-color: #4ecdc4"></button>
+                    <button onclick="changeColor('#45b7d1')" style="background-color: #45b7d1"></button>
+                    <button onclick="changeColor('#96ceb4')" style="background-color: #96ceb4"></button>
+                    <button onclick="changeColor('#ffbe0b')" style="background-color: #ffbe0b"></button>
+                    <button onclick="changeColor('#fb5607')" style="background-color: #fb5607"></button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Editar Contenido</h4>
+                <div class="dropdown-content">
+                    <button onclick="enableEditing('news-title')">Editar Títulos</button>
+                    <button onclick="enableEditing('news-item p')">Editar Textos</button>
+                    <button onclick="enableEditing('news-link')">Editar Enlaces</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <h4>Enlaces Útiles</h4>
+                <div class="dropdown-content">
+                    <a href="webgrafia.html">Referencias</a>
+                    <a href="agradecimientos.html">Agradecimientos</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="container">
+        <h1>Noticias sobre Alto Consumo Energético</h1>
+        
+        <div class="news-item">
+            <h2 class="news-title">Microsoft demuestra que sumergir centros de datos en el océano reduce drásticamente los fallos</h2>
+            <p>Microsoft sumergió un centro de datos en el fondo del océano durante dos años y descubrió que la tasa de fallos fue solo una octava parte de la que se da en tierra firme. Esta innovadora solución podría revolucionar la eficiencia energética en el almacenamiento de datos...</p>
+            <img src="../images/news/microsoft-underwater.jpg" alt="Centro de datos submarino" class="news-image">
+            <a href="https://www.xataka.com/otros/microsoft-sumergio-centro-datos-fondo-oceanico-dos-anos-dicen-que-fallo-solo-octava-parte-que-uno-tierra" class="news-link">Leer más en Xataka →</a>
+        </div>
+
+        <div class="news-item">
+            <h2 class="news-title">El consumo energético de los centros de datos se dispara con la IA</h2>
+            <p>El auge de la inteligencia artificial está provocando un aumento significativo en el consumo energético de los centros de datos. Las empresas buscan soluciones sostenibles mientras la demanda de procesamiento continúa creciendo...</p>
+            <img src="../images/news/ai-energy-consumption.jpg" alt="Consumo energético IA" class="news-image">
+            <a href="https://elpais.com/noticias/consumo-energia/" class="news-link">Leer más en El País →</a>
+        </div>
+
+        <div class="news-item">
+            <h2 class="news-title">Microsoft Fabric revoluciona la gestión de datos empresariales</h2>
+            <p>Microsoft Fabric presenta una solución integrada para el análisis de datos que promete reducir la complejidad y el consumo energético en el procesamiento de Big Data, unificando diferentes herramientas en una sola plataforma...</p>
+            <img src="../images/news/ms-fabric.jpg" alt="Microsoft Fabric" class="news-image">
+            <a href="https://www.plainconcepts.com/es/ms-fabric-data-activator/" class="news-link">Leer más en Plain Concepts →</a>
+        </div>
+
+        <div class="news-item">
+            <h2 class="news-title">Big Data: El desafío de la sostenibilidad en la era digital</h2>
+            <p>La explosión de datos masivos plantea nuevos retos para la sostenibilidad ambiental. Las empresas tecnológicas buscan equilibrar la necesidad de procesamiento de datos con la responsabilidad medioambiental...</p>
+            <img src="../images/news/big-data-sustainability.jpg" alt="Sostenibilidad" class="news-image">
+            <a href="https://elpais.com/noticias/macrodatos/" class="news-link">Leer más en El País →</a>
+        </div>
+
+        <a href="../index.html" class="back-btn">Volver a la página principal</a>
+    </div>
+
+    <script>
+    let selectedElement = 'header';
+
+    function changeColor(color) {
+        const elements = document.getElementsByClassName(selectedElement);
+        for (let element of elements) {
+            element.style.backgroundColor = color;
+        }
+    }
+
+    function enableEditing(selector) {
+        const elements = document.querySelectorAll('.' + selector);
+        elements.forEach(element => {
+            element.contentEditable = true;
+            element.classList.add('editable');
+            
+            if (element.tagName === 'A') {
+                element.addEventListener('dblclick', function(e) {
+                    e.preventDefault();
+                    const newUrl = prompt('Introduce el nuevo enlace:', element.href);
+                    if (newUrl) {
+                        element.href = newUrl;
+                    }
+                });
+            }
+        });
+        
+        alert('Modo edición activado. Haz clic para editar el texto. Doble clic en enlaces para cambiar URLs.');
+    }
+
+    // Update selected element when dropdown changes
+    document.getElementById('elementSelector').addEventListener('change', function(e) {
+        selectedElement = e.target.value;
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code - Big Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f4f4f4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        #qrcode {
+            margin: 2rem 0;
+        }
+
+        .download-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .url-display {
+            word-break: break-all;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .qr-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #qrcode {
+            margin: 1rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        #qrcode img {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <h1>Código QR - Acceso a la Web</h1>
+        <p class="url-display" id="currentUrl"></p>
+        <div id="qrcode"></div>
+        <a id="downloadBtn" class="download-btn" download="qr-bigdata.png">Descargar QR</a>
+    </div>
+
+    <script>
+        // Get the base URL of your website
+        const baseUrl = window.location.origin;
+        const websiteUrl = baseUrl + '/bigdata-exhibition/';
+        
+        document.getElementById('currentUrl').textContent = websiteUrl;
+
+        // Generate QR Code
+        const qr = qrcode(0, 'M');
+        qr.addData(websiteUrl);
+        qr.make();
+
+        // Display QR Code
+        document.getElementById('qrcode').innerHTML = qr.createImgTag(8);
+
+        // Setup download button
+        const qrImage = document.querySelector('#qrcode img');
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.href = qrImage.src;
+    </script>
+
+    <script>
+        // Generate QR Code for the current URL
+        window.addEventListener('load', function() {
+            const currentUrl = window.location.href;
+            const qr = qrcode(0, 'M');
+            qr.addData(currentUrl);
+            qr.make();
+            document.getElementById('qrcode').innerHTML = qr.createImgTag(8);
+        });
+    </script>
+</body>
+</html>
